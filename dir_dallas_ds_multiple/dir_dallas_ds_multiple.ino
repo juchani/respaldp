@@ -21,4 +21,8 @@ Serial.println();
 Serial.println();
 ourWire.reset_search();
 delay(2000);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 941ca59634530a6110725808d796cfe22c1cd89d

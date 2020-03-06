@@ -40,4 +40,8 @@ void loop() {
   }
   display.show(temp1, 18, 1, ALIGN_LEFT);
   display.show(temp2, 18, 1, ALIGN_RIGHT);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 941ca59634530a6110725808d796cfe22c1cd89d

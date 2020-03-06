@@ -44,4 +44,8 @@ int sub_proceso(){
   
 Serial.println(define_cont);
 }
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> 941ca59634530a6110725808d796cfe22c1cd89d

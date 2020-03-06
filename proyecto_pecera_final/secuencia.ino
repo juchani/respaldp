@@ -7,4 +7,8 @@ t=EEPROM.read(dir_relay);
   digitalWrite(buzzer,0);
  digitalWrite(motor,1);
 }
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> 941ca59634530a6110725808d796cfe22c1cd89d

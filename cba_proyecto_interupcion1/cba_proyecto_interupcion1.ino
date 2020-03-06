@@ -4,7 +4,11 @@ Cronos M1(1000);
 const int channelPinA = 2;
 const int channelPinB = 3;
 int cont=0; 
+<<<<<<< HEAD
+const int timeThreshold = 5;//5
+=======
 const int timeThreshold = 5;
+>>>>>>> 941ca59634530a6110725808d796cfe22c1cd89d
 long timeCounter = 0;
  
 const int maxSteps = 8550;
@@ -60,14 +64,22 @@ else{
   n=1;
  // rst=0;
 }
+<<<<<<< HEAD
+   /* if(M1.Estado()){
+=======
     if(M1.Estado()){
+>>>>>>> 941ca59634530a6110725808d796cfe22c1cd89d
       counter = ISRCounter;
       Serial.print(counter*-1);
       Serial.print(",");
       Serial.println(cont*n);
      // cont++;
      rst++;
+<<<<<<< HEAD
+      }*/
+=======
       }
+>>>>>>> 941ca59634530a6110725808d796cfe22c1cd89d
    if (counter != ISRCounter)
    {
       counter = ISRCounter;
@@ -83,4 +95,8 @@ else{
    
 }
  
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> 941ca59634530a6110725808d796cfe22c1cd89d
