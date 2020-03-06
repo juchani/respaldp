@@ -1,0 +1,33 @@
+int a,b,c;
+void setup() {
+Serial.begin(9600);
+Serial.setTimeout(1000);
+}
+
+void loop() {
+if(Serial.available()>0){
+a=Serial.parseInt();
+b=Serial.parseInt();
+c=Serial.parseInt();  
+//a,b,c=eliminador(a,b,c);
+Serial.print(a);
+Serial.print('\t');
+Serial.print(b);
+Serial.print('\t');
+Serial.println(c);
+
+}
+//delay(500);
+ }
+
+int eliminador (int v,int vv,int bv){
+  if (v==0 and vv==0 and bv==0){
+    return a,b,c;
+    
+  }
+  else{
+    return v,vv,bv;
+  }
+  
+}
+
