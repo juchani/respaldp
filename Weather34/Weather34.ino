@@ -25,4 +25,8 @@ void loop() {
  // display.clear();
   display.show(3, 8, 1, ALIGN_RIGHT);
  // display.clear();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 941ca59634530a6110725808d796cfe22c1cd89d
