@@ -1,0 +1,26 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+SevSegSPI	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+init	KEYWORD2
+set	KEYWORD2
+get	KEYWORD2
+update	KEYWORD2
+off	KEYWORD2
+
+######################################
+# Constants (LITERAL1)
+#######################################
+
+SEVSEG_CS	LITERAL1
+SEVSEG_FRAMEPERIOD	LITERAL1
