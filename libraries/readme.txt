@@ -1,1 +1,1 @@
-Para mÃ¡s informaciÃ³n de cÃ³mo instalar librerÃ­as, mire: http://www.arduino.cc/en/Guide/Libraries
+Para más información de cómo instalar librerías, mire: http://www.arduino.cc/en/Guide/Libraries
