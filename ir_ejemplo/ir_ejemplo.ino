@@ -24,7 +24,7 @@ void loop()
       Serial.println("ok");
 
     }
-    if (results.value == 0xFFA857) {
+    if (results.value == 0x1BC0157B) {
       Serial.println("abajo");
     }
     if (results.value == 0xFF22DD) {
@@ -33,7 +33,7 @@ void loop()
     if (results.value == 0xFFC23D) {
       Serial.println("derecha");
     }
-    if (results.value == 0xFF629D) {
+    if (results.value == 0x3D9AE3F7) {
       Serial.println("arriba");
     }
     if (results.value == 0xFF4AB5) {

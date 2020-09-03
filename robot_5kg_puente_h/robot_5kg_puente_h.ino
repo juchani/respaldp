@@ -1,9 +1,8 @@
-int Pin_Motor_Der_A = 10;
-int Pin_Motor_Der_B = 9;
-int Pin_Motor_Izq_A = 12;
-int Pin_Motor_Izq_B = 11;
-int tiempo = 0, limite = 1000;
-
+int Pin_Motor_Der_A = 9;
+int Pin_Motor_Der_B = 10;
+int Pin_Motor_Izq_A = 11;
+int Pin_Motor_Izq_B = 12;
+int t=1000;
 void setup() {
   // inicializar la comunicación serial a 9600 bits por segundo:
   Serial.begin(9600);
@@ -11,7 +10,7 @@ void setup() {
   pinMode(Pin_Motor_Der_B, OUTPUT);
   pinMode(Pin_Motor_Izq_A, OUTPUT);
   pinMode(Pin_Motor_Izq_B, OUTPUT);
-
+pinMode(13,OUTPUT);
 }
 
 void loop() {
@@ -20,49 +19,46 @@ void loop() {
     char dato = Serial.read();
     if (dato == 'a')
     {
+      digitalWrite(13,HIGH);
+      delay(300);
+      digitalWrite(13,LOW);
+      delay(300);
       Mover_Adelante();
-      tiempo = 0;
+      delay(t);
+      Stop();
 
     }
     else if (dato == 'r')
     {
       Mover_Retroceso();
-      tiempo = 0;
+      delay(t);
+      Stop();
     }
     else if (dato == 'd')
     {
       Mover_Derecha();
-      tiempo = 0;
+      delay(t);
+      Stop();
     }
     else if (dato == 'i')
     {
       Mover_Izquierda();
-      tiempo = 0;
-    }
-    else if (dato == 's')
-    {
-      Mover_Stop();
-      tiempo = 0;
+      delay(t);
+      Stop();
     }
 
   }
 
-  if (tiempo < limite) // 1000   cilcos de 1ms
-  {
-    tiempo = tiempo + 1;
-  }
-  else   //ya transcurrió 100ms (100ciclos)
-  {
-    Mover_Stop();
-  }
 
 
-  delay(1); //pasusa de 1ms por ciclo
+
+
 
 }
 
 void Mover_Adelante()
 {
+  Stop();
   digitalWrite (Pin_Motor_Der_A, HIGH);
   digitalWrite (Pin_Motor_Der_B, LOW);
   digitalWrite (Pin_Motor_Izq_A, HIGH);
@@ -70,6 +66,7 @@ void Mover_Adelante()
 }
 void Mover_Retroceso()
 {
+  Stop();
   digitalWrite (Pin_Motor_Der_A, LOW );
   digitalWrite (Pin_Motor_Der_B, HIGH );
   digitalWrite (Pin_Motor_Izq_A, LOW );
@@ -77,6 +74,7 @@ void Mover_Retroceso()
 }
 void Mover_Derecha()
 {
+  Stop();
   digitalWrite (Pin_Motor_Der_A, LOW );
   digitalWrite (Pin_Motor_Der_B, HIGH );
   digitalWrite (Pin_Motor_Izq_A, HIGH);
@@ -84,15 +82,18 @@ void Mover_Derecha()
 }
 void Mover_Izquierda()
 {
+  Stop();
   digitalWrite (Pin_Motor_Der_A, HIGH);
   digitalWrite (Pin_Motor_Der_B, LOW);
   digitalWrite (Pin_Motor_Izq_A, LOW );
   digitalWrite (Pin_Motor_Izq_B, HIGH );
 }
-void Mover_Stop()
+void Stop()
 {
+
   digitalWrite (Pin_Motor_Der_A, LOW);
   digitalWrite (Pin_Motor_Der_B, LOW);
   digitalWrite (Pin_Motor_Izq_A, LOW);
   digitalWrite (Pin_Motor_Izq_B, LOW);
+delay(1000);
 }
