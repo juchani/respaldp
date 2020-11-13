@@ -1,16 +1,16 @@
 #include <SoftwareSerial.h>
 #include <TinyGPS.h>
 TinyGPS gps;
-SoftwareSerial ss(10, 11);
-SoftwareSerial sim800l(7, 8);
+SoftwareSerial ss(8,7 );
+SoftwareSerial sim800l(4, 5);
 String ubicacion;
-int botton = 9;
+int botton = A0;
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
   ss.begin(9600);
   //sim800l.begin(9600);
-  pinMode(9, INPUT_PULLUP);
+  pinMode(A0, INPUT_PULLUP);
 
 }
 
@@ -45,7 +45,7 @@ if(digitalRead(botton)==0){
   delay(500);
   Serial.println("AT+CMGF=1"); 
   delay(500);
-  Serial.println("AT+CMGS=\"+59169122887\"");
+  Serial.println("AT+CMGS=\"71066743\"");
   delay(500);
   Serial.print("creo que estoy en peligro " + ubicacion); 
   delay(500);
@@ -58,6 +58,3 @@ if(digitalRead(botton)==0){
   if (chars == 0)
     Serial.println("** No characters received from GPS: check wiring **");
 }
-
-
-

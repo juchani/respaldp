@@ -1,97 +1,73 @@
-// Adafruit Motor shield library
-// copyright Adafruit Industries LLC, 2009
-// this code is public domain, enjoy!
 
+#include <IRremote.h>
 #include <AFMotor.h>
 
-AF_DCMotor motor(1);
-AF_DCMotor motor2(2);
+int RECV_PIN = 9;
+
+IRrecv irrecv(RECV_PIN);
+
+decode_results results;
+int t=300;
+
 AF_DCMotor motor3(3);
 AF_DCMotor motor4(4);
 
 void setup() {
   Serial.begin(9600);           // set up Serial library at 9600 bps
   Serial.println("Motor test!");
-
+  irrecv.enableIRIn(); // Start the receiver
   // turn on motor
-  motor.setSpeed(200);
-  motor2.setSpeed(200);
-  motor3.setSpeed(200);
-  motor4.setSpeed(200);
- 
-//  motor.run(RELEASE);
-}
+  motor3.setSpeed(250);
+  motor4.setSpeed(250);
 
-void loop() {
-izquierda();
-delay(1000);
-parar();
-delay(1000);
+  //  motor.run(RELEASE);
 }
-void adelante(){
-  motor.run(BACKWARD);
-  motor2.run(FORWARD);
-  motor3.run(BACKWARD);
-  motor4.run(BACKWARD);
-  delay(10);
-}
-void retro(){
-  motor.run(RELEASE);
-  motor2.run(BACKWARD);
+void adelante() {
   motor3.run(FORWARD);
-  motor4.run(RELEASE);
-  delay(10);
-
+  motor4.run(FORWARD);
+  delay(t+500);
+  parar();
 }
-void derecha(){
-  motor.run(BACKWARD);
-  motor2.run(FORWARD);
-  motor3.run(RELEASE);
-  motor4.run(RELEASE);
-}
-void izquierda(){
-  motor.run(RELEASE);
-  motor2.run(RELEASE);
+void retro() {
   motor3.run(BACKWARD);
   motor4.run(BACKWARD);
+  delay(t+500);
+  parar();
+
 }
-void parar(){
-  motor.run(RELEASE);
-  motor2.run(RELEASE);
+void derecha() {
+  motor3.run(FORWARD);
+  motor4.run(BACKWARD);
+  delay(t);
+  parar();
+}
+void izquierda() {
+  motor4.run(FORWARD);
+  motor3.run(BACKWARD);
+  delay(t);
+  parar();
+}
+void parar() {
+
   motor3.run(RELEASE);
   motor4.run(RELEASE);
 }
-void tester(){
-  uint8_t i;
-  
-  Serial.print("tick");
-  
-  motor.run(FORWARD);
-  for (i=0; i<255; i++) {
-    motor.setSpeed(i);  
-    delay(10);
- }
- 
-  for (i=255; i!=0; i--) {
-    motor.setSpeed(i);  
-    delay(10);
- }
-  
-  Serial.print("tock");
+void loop() {
+  if (irrecv.decode(&results))
 
-  motor.run(BACKWARD);
-  for (i=0; i<255; i++) {
-    motor.setSpeed(i);  
-    delay(10);
- }
- 
-  for (i=255; i!=0; i--) {
-    motor.setSpeed(i);  
-    delay(10);
- }
-  
-
-  Serial.print("tech");
-  motor.run(RELEASE);
-  delay(1000);  
+  {
+    switch (results.value)
+    {
+      case 0xFF18E7: Serial.println("Tecla: Arriba"); adelante();
+        break;
+      case 0xFF10EF: Serial.println("Tecla: Izquierda"); derecha();
+        break;
+      case 0xFF5AA5: Serial.println("Tecla: Derecha"); izquierda();
+        break;
+      case 0xFF4AB5: Serial.println("Tecla: Abajo"); retro();
+        break;
+    }
+    irrecv.resume();
+  }
+  delay(300);
 }
