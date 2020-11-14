@@ -1,6 +1,6 @@
 #include <SoftwareSerial.h>
 #include <TinyGPS.h>
-SoftwareSerial GPS(8, 7);
+SoftwareSerial GPS(11, 10);
 TinyGPS gps;
 String mensaje;
 void setup()
@@ -38,7 +38,7 @@ Serial.println(mensaje);
   gps.stats(&chars, &sentences, &failed);
 
   if (chars == 0) {
-
+ 
   }
 
 }
