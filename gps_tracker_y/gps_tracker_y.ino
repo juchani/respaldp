@@ -4,7 +4,7 @@ SoftwareSerial SIM800L(10, 9); //SIM800L Tx & Rx is connected to Arduino #3 & #2
 SoftwareSerial GPS(7, 8);
 TinyGPS gps;
 
-String texto = "", numero = "71066743";
+String texto = "";
 String mensaje;
 int led = 13, relay = A1, c;
 bool st = 0, sta = 0;
