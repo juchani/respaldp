@@ -117,7 +117,7 @@ void sms() {
   digitalWrite(led, HIGH);
   SIM800L.println("AT+CMGF=1"); // Configuring TEXT mode
   updateSerial();
-  SIM800L.println("AT+CMGS=\"71066743\"");//change ZZ with country code and xxxxxxxxxxx with phone number to sms
+  SIM800L.println("AT+CMGS=\"63438720\"");//change ZZ with country code and xxxxxxxxxxx with phone number to sms
   updateSerial();
   SIM800L.println("MENSAJE RECIBIDO:"); //text content
   SIM800L.print(mensaje); //text content
