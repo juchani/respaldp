@@ -1,5 +1,5 @@
 #include <SoftwareSerial.h>
-SoftwareSerial mySerial(9, 8); //SIM800L Tx & Rx is connected to Arduino #3 & #2
+SoftwareSerial mySerial(12, 15); //SIM800L Tx & Rx is connected to Arduino #3 & #2
 String texto = "";
 bool c;
 void setup()
@@ -13,11 +13,7 @@ void setup()
 void loop()
 {
   updateSerial();
-  if(c==1){
- // texto.remove('\n');
-  Serial.print(texto);
-  c=0;
-  }
+  
 }
 
 void updateSerial()
@@ -26,7 +22,6 @@ void updateSerial()
   while (mySerial.available())
   {
     texto += (char)mySerial.read();
-    c = 1;
   }
-
+Serial.println(texto);
 }
