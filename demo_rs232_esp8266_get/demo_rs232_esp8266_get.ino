@@ -8,7 +8,7 @@ SoftwareSerial rs232(0, 2);
 const char* ssid = "Insertec-AP";
 const char* password = "INSERTEC2016.";
 String url = "http://clinica.solucionespymes.com/apic/savedata?list=FREND";
-
+bool st=0;
 void setup()
 {
   Serial.begin(9600);
@@ -38,7 +38,7 @@ void updateSerial()
     cero[3].remove(2, 20);
     cero[4].remove(0, 1);
     cero[4].remove(cero[4].length() - 8, cero[4].length());
-    cero[4].replace(" ", "");
+    cero[4].replace(" ", "%20");
     cero[5].remove(cero[5].length() - 9, cero[5].length());
     cero[5].replace(" ", "");
     cero[6].remove(cero[6].length() - 9, cero[6].length());
@@ -47,6 +47,9 @@ void updateSerial()
     cero[7].replace(" ", "");
     cero[8].remove(cero[8].length() - 4, cero[8].length());
     cero[8].replace(" ", "");
+    if(cero[9].indexOf("COVID-19 IgG")>-1){
+     st=1; 
+    }
     cero[9].remove(cero[9].length() - 16, cero[9].length());
     cero[9].replace(" ", "");
     cero[10].remove(cero[10].length() - 14, cero[10].length());
@@ -94,14 +97,15 @@ void updateSerial()
     lista.replace("\n", "");
     lista.replace(" ", "");
     lista.replace("\r", "");
-    enviar(lista);
+    enviar(lista,st);
   }
 }
 
 
 
 
-void enviar(String d) {
+void enviar(String d,bool l) {
+  if(l==1){
   HTTPClient http;
   WiFiClient client;
   d = url + d;
@@ -117,6 +121,7 @@ void enviar(String d) {
       if (httpCode == HTTP_CODE_OK || httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
         String payload = http.getString();   // Obtener respuesta
         Serial.println(payload);   // Mostrar respuesta por serial
+        st=0;
       }
     }
     else {
@@ -127,5 +132,7 @@ void enviar(String d) {
   }
   else {
     Serial.printf("[HTTP} Unable to connect\n");
+  }  
   }
+  
 }

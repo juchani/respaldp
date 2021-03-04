@@ -1,5 +1,6 @@
 #include <SoftwareSerial.h>
 SoftwareSerial rs232(0, 2);
+int st;
 void setup()
 {
   Serial.begin(9600);
@@ -19,6 +20,9 @@ void updateSerial()
   {
 
     String cero[12] = rs232.readStringUntil(':');
+    if(cero[9].indexOf("COVID-19 IgG")>-1){
+      
+    
     cero[0].remove(0, 30);
     cero[1].remove(0, 1);
     cero[1].replace(" ", "|");
@@ -39,7 +43,9 @@ void updateSerial()
     cero[9].replace(" ", "");
     cero[10].remove(cero[10].length() - 14, cero[10].length());
     cero[10].replace(" ", "");
-/*    Serial.print(0);
+
+    }
+    Serial.print(0);
     Serial.print(" ");
     Serial.println(cero[0]);
     Serial.print(1);
@@ -77,7 +83,7 @@ void updateSerial()
     Serial.println(cero[11]);
     Serial.print(12);
     Serial.print(" ");
-    Serial.println(cero[12]);*/
+    Serial.println(cero[12]);
 String lista='|'+cero[4]+'|'+cero[5]+'|'+cero[6]+'|'+cero[7]+'|'+ cero[8]+'|'+"COVID-19 igG+COVID-19 igM"+'|'+cero[10]+'$'+cero[11]+'|'+'|'+'|'+cero[1]+cero[2]+cero[3];
 lista.replace("\n", "");
     Serial.println(lista);
