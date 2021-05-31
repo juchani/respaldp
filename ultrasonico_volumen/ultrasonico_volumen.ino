@@ -1,29 +1,29 @@
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
 
-#define SCREEN_WIDTH 128 
-#define SCREEN_HEIGHT 32 
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 32
 
-#define OLED_RESET     4 
-#define SCREEN_ADDRESS 0x3C 
+#define OLED_RESET     4
+#define SCREEN_ADDRESS 0x3C
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-
+int volumen;
 int pinecho = 7;
-int pintrigger =6;
-int  led=13;
-int tiempo, distancia;
+int pintrigger = 6;
+int  led = 13;
+float tiempo, distancia;
 
 void setup() {
-  
+
   Serial.begin(9600);
-    if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+  if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     Serial.println(F("SSD1306 allocation failed"));
     for (;;); // Don't proceed, loop forever
   }
   pinMode(pinecho, INPUT);
   pinMode(pintrigger, OUTPUT);
-  pinMode(led,OUTPUT);
-  }
+  pinMode(led, OUTPUT);
+}
 
 void loop() {
   // ENVIAR PULSO DE DISPARO EN EL PIN "TRIGGER"
@@ -39,30 +39,34 @@ void loop() {
 
   // LA VELOCIDAD DEL SONIDO ES DE 340 M/S O 29 MICROSEGUNDOS POR CENTIMETRO
   // DIVIDIMOS EL TIEMPO DEL PULSO ENTRE 58, TIEMPO QUE TARDA RECORRER IDA Y VUELTA UN CENTIMETRO LA ONDA SONORA
-  distancia = (tiempo / 29)/2;
+  distancia = (tiempo / 29) / 2;
 
   // ENVIAR EL RESULTADO AL MONITOR SERIAL
-  Serial.print(distancia);
-  Serial.println(" cm");
 
-  
+  volumen = 3.14159265359 * (5.5 * 5.5) * (10 - distancia);
+  volumen=volumen+40;
+  Serial.print(distancia);
+  Serial.print(" cm ");
+  Serial.print(volumen);
+  Serial.println(" cm3");
+
   display.clearDisplay();
   display.setCursor(25, 10);
-  display.setTextSize(3);             // Draw 2X-scale text
+  display.setTextSize(1);             // Draw 2X-scale text
   display.setTextColor(SSD1306_WHITE);
-  display.print(distancia);
-  display.println(" CM");
+  display.println("bienvenido");
+  display.setCursor(25, 20);
+   display.print("victor");
   display.display();
-  
-if(distancia<=5){
-  digitalWrite(led,1);
 
-}
-else{
-  digitalWrite(led,0);
-}
+  if (distancia <= 5) {
+    digitalWrite(led, 1);
+
+  }
+  else {
+    digitalWrite(led, 0);
+  }
 
   delay(200);
 
 }
-  

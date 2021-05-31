@@ -2,7 +2,7 @@ void updateSerial()
 {
   if (rs232.available())
   {
-    Serial.println("..");
+    Serial.println(rs232.available());
     String cero[20] = rs232.readStringUntil('\n');
     for (int i; i < 20; i++) {
       //CONFIRMACION INICIO-FIN
@@ -15,6 +15,7 @@ void updateSerial()
         for (int e; e < 20; e++) {
           cero[e] = "";
         }
+        buf();
         break;
       }
       if (cero[i].length() == 0) {
@@ -27,7 +28,7 @@ void updateSerial()
       Serial.println(cero[i]);
       if (vacio > 1) {
         limite = i;
-        vacio=0;
+        vacio = 0;
         break;
       }
     }
@@ -70,9 +71,9 @@ void updateSerial()
       ref_min = li(1, ref_min);
       test_result.remove(0, 1);
       item_code.remove(0, 1);
-//      test_result.replace(" ", "%20");
-//      E.replace(" ", "%20");
-//      item_code.replace(" ", "%20");
+      //      test_result.replace(" ", "%20");
+      //      E.replace(" ", "%20");
+      //      item_code.replace(" ", "%20");
       Serial.print(E);
       Serial.print(item_code);
       Serial.print(test_result);
@@ -84,15 +85,15 @@ void updateSerial()
       Serial.print("-----------------  ");
       //Serial.println(u.indexOf("|"));
       Serial.println(u.length());
-      if(u.length()>100){ //&& u.startsWith(E)
+      if (u.length() > 100) { //&& u.startsWith(E)
         envio(u);
         delay(500);
       }
-      else{
-        u="";
+      else {
+        u = "";
       }
-      
-      
+
+
       item_code = "";
       test_result = "";
       date_time = "";
@@ -104,5 +105,13 @@ void updateSerial()
     for (int i; i < 20; i++) {
       cero[i] = "";
     }
+  }
+}
+
+
+
+void buf() {
+  while (rs232.available() > 0) {
+    rs232.flush();
   }
 }

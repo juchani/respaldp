@@ -2,17 +2,17 @@
 #include <HTTPClient.h>
 #include <SoftwareSerial.h>
 
-SoftwareSerial rs232(27, 26);//rx-tx
-const char* ssid = "Insertec-AP";/////red
-const char* password = "INSERTEC2016.";//////////pasword
+SoftwareSerial rs232(26, 27);//rx-tx
+const char* ssid = "juchani";/////red
+const char* password = "12345678";//////////pasword
 String url = "http://clinica.solucionespymes.com/apic/savedata?list=FREND";
 unsigned long lastTime = 0;
 unsigned long timerDelay = 5000;
 String texto = "", E;
 String item_code, test_result, test_unit, ref_max, ref_min, date_time, ver = "1.0.0.0";
 String total[8] = {E, item_code, test_result, test_unit, ref_max, ref_min, date_time, ver};
-int buzzer = 12,led = 13;
-int vacio=0,limite=0;
+int buzzer = 12, led = 13;
+int vacio = 0, limite = 0;
 String fecha;
 bool error = 0;
 void setup()
@@ -42,7 +42,7 @@ void loop()
 
 
   updateSerial();
-
+  Serial.println(rs232.available());
   delay(10);
 }
 
