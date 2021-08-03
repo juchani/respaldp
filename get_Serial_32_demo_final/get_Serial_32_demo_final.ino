@@ -8,7 +8,7 @@
 #define boton 35
 //-------------------OBJ
 TFT_eSPI tft = TFT_eSPI();
-SoftwareSerial rs232(26, 27);//rx-tx
+SoftwareSerial rs232(27, 26);//rx-tx
 WiFiClient espClient;
 WebServer server(80);
 //-------------------VARIABLES GLOBALES

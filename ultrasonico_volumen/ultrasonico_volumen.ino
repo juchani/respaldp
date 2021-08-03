@@ -1,28 +1,28 @@
+#include <LiquidCrystal_PCF8574.h>
 #include <Wire.h>
-#include <Adafruit_SSD1306.h>
+#define buzzer 7
+#define relay 12
+LiquidCrystal_PCF8574 lcd(0x27);
 
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 32
 
-#define OLED_RESET     4
-#define SCREEN_ADDRESS 0x3C
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-int volumen;
-int pinecho = 7;
-int pintrigger = 6;
-int  led = 13;
+int pinecho = 9;
+int pintrigger = 10;
+int  led = 2;
 float tiempo, distancia;
 
 void setup() {
-
+int error;
   Serial.begin(9600);
-  if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
-    Serial.println(F("SSD1306 allocation failed"));
-    for (;;); // Don't proceed, loop forever
-  }
+  Wire.begin();
+  Wire.beginTransmission(0x27);
+  error = Wire.endTransmission();
   pinMode(pinecho, INPUT);
   pinMode(pintrigger, OUTPUT);
   pinMode(led, OUTPUT);
+  pinMode(buzzer,OUTPUT);
+pinMode(relay,OUTPUT);
+lcd.begin(16, 2); 
+lcd.setBacklight(255);
 }
 
 void loop() {
@@ -43,30 +43,33 @@ void loop() {
 
   // ENVIAR EL RESULTADO AL MONITOR SERIAL
 
-  volumen = 3.14159265359 * (5.5 * 5.5) * (10 - distancia);
-  volumen=volumen+40;
+  if(distancia<10){
+    digitalWrite(led,HIGH);
+    digitalWrite(relay,HIGH);
+    digitalWrite(buzzer,HIGH);
+delay(1000);
+digitalWrite(relay,LOW);
+digitalWrite(buzzer,LOW);
+delay(500);
+    digitalWrite(led,LOW);
+     lcd.clear();
+    lcd.setCursor(5, 1);
+    lcd.print("GRACIAS");
+    delay(2000);
+  }
+  else{
+    digitalWrite(led,LOW);
+   
+
+  }
   Serial.print(distancia);
-  Serial.print(" cm ");
-  Serial.print(volumen);
-  Serial.println(" cm3");
+  Serial.println(" cm ");
+  lcd.clear();
+    lcd.setCursor(5, 0);
+    lcd.print("ACERQUE");
+    lcd.setCursor(5, 1);
+    lcd.print("SU MANO");
+delay(400);
 
-  display.clearDisplay();
-  display.setCursor(25, 10);
-  display.setTextSize(1);             // Draw 2X-scale text
-  display.setTextColor(SSD1306_WHITE);
-  display.println("bienvenido");
-  display.setCursor(25, 20);
-   display.print("victor");
-  display.display();
-
-  if (distancia <= 5) {
-    digitalWrite(led, 1);
-
-  }
-  else {
-    digitalWrite(led, 0);
-  }
-
-  delay(200);
 
 }
